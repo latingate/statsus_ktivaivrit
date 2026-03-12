@@ -1,1 +1,396 @@
-KtivaIvirt - Status 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --status-operational: #16a34a;
+      --status-degraded: #f59e0b;
+      --status-outage: #dc3545;
+      --status-maintenance: #0d6efd;
+      --surface: #ffffff;
+      --surface-soft: #f8f9fa;
+      --border-soft: #e9ecef;
+      --text-muted-soft: #6c757d;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #f8fbff 0%, #f6f7fb 100%);
+      color: #212529;
+    }
+
+    .hero-card,
+    .status-card,
+    .incident-card,
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(17, 24, 39, 0.05);
+    }
+
+    .page-wrap {
+      max-width: 1100px;
+    }
+
+    .overall-indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+      background: var(--status-operational);
+      box-shadow: 0 0 0 0.35rem rgba(22, 163, 74, 0.15);
+    }
+
+    .status-pill {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-operational {
+      background: rgba(22, 163, 74, 0.12);
+      color: #0f7a35;
+    }
+    .status-operational::before { background: var(--status-operational); }
+
+    .status-degraded {
+      background: rgba(245, 158, 11, 0.12);
+      color: #a16207;
+    }
+    .status-degraded::before { background: var(--status-degraded); }
+
+    .status-outage {
+      background: rgba(220, 53, 69, 0.12);
+      color: #b02a37;
+    }
+    .status-outage::before { background: var(--status-outage); }
+
+    .status-maintenance {
+      background: rgba(13, 110, 253, 0.12);
+      color: #0a58ca;
+    }
+    .status-maintenance::before { background: var(--status-maintenance); }
+
+    .service-row + .service-row {
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .service-name {
+      font-weight: 600;
+    }
+
+    .uptime-bar {
+      display: grid;
+      grid-template-columns: repeat(30, 1fr);
+      gap: 0.2rem;
+    }
+
+    .uptime-bar span {
+      height: 28px;
+      border-radius: 0.3rem;
+      background: #dfe3e8;
+    }
+
+    .uptime-bar span.ok { background: rgba(22, 163, 74, 0.8); }
+    .uptime-bar span.warn { background: rgba(245, 158, 11, 0.85); }
+    .uptime-bar span.bad { background: rgba(220, 53, 69, 0.85); }
+    .uptime-bar span.maint { background: rgba(13, 110, 253, 0.8); }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--status-operational);
+      flex-shrink: 0;
+      margin-top: 0.4rem;
+    }
+
+    .timeline-item + .timeline-item {
+      border-top: 1px dashed var(--border-soft);
+    }
+
+    .small-label {
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      color: var(--text-muted-soft);
+      font-weight: 700;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .chart-placeholder {
+      height: 220px;
+      border-radius: 0.9rem;
+      background:
+        linear-gradient(180deg, rgba(13,110,253,0.08), rgba(13,110,253,0.01)),
+        repeating-linear-gradient(
+          to right,
+          transparent,
+          transparent 39px,
+          rgba(0,0,0,0.04) 40px
+        ),
+        repeating-linear-gradient(
+          to top,
+          transparent,
+          transparent 39px,
+          rgba(0,0,0,0.04) 40px
+        );
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+    }
+
+    .chart-line {
+      position: absolute;
+      inset: auto 0 30px 0;
+      height: 120px;
+    }
+
+    .chart-line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .footer-note {
+      color: var(--text-muted-soft);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 767.98px) {
+      .uptime-bar span {
+        height: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4 py-lg-5 page-wrap">
+    <header class="hero-card p-4 p-lg-5 mb-4">
+      <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
+        <div>
+          <div class="small-label mb-2">System Status</div>
+          <h1 class="display-6 fw-bold mb-3">All systems operational</h1>
+          <p class="lead text-secondary mb-0">
+            Real-time availability and incident history for your platform services.
+          </p>
+        </div>
+        <div class="text-lg-end">
+          <div class="d-inline-flex align-items-center gap-2 mb-2">
+            <span class="overall-indicator"></span>
+            <span class="fw-semibold">Operational</span>
+          </div>
+          <div class="text-secondary">Last updated: Mar 13, 2026 · 12:00 AM</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="metric-card p-4 h-100">
+          <div class="small-label mb-2">API uptime</div>
+          <div class="metric-value">99.98%</div>
+          <div class="text-secondary mt-2">Last 30 days</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="metric-card p-4 h-100">
+          <div class="small-label mb-2">Avg response time</div>
+          <div class="metric-value">182ms</div>
+          <div class="text-secondary mt-2">Global average</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="metric-card p-4 h-100">
+          <div class="small-label mb-2">Open incidents</div>
+          <div class="metric-value">0</div>
+          <div class="text-secondary mt-2">No active disruptions</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="status-card p-4 p-lg-5 mb-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+          <h2 class="h4 mb-1">Services</h2>
+          <p class="text-secondary mb-0">Current health across core components</p>
+        </div>
+        <button class="btn btn-outline-secondary btn-sm">Subscribe to updates</button>
+      </div>
+
+      <div class="service-row py-3">
+        <div class="row align-items-center g-3">
+          <div class="col-md-4">
+            <div class="service-name">Website</div>
+            <div class="text-secondary small">Public frontend and landing pages</div>
+          </div>
+          <div class="col-md-3 text-md-center">
+            <span class="status-pill status-operational">Operational</span>
+          </div>
+          <div class="col-md-5">
+            <div class="uptime-bar" aria-label="30 day uptime history">
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row py-3">
+        <div class="row align-items-center g-3">
+          <div class="col-md-4">
+            <div class="service-name">API</div>
+            <div class="text-secondary small">REST and webhook endpoints</div>
+          </div>
+          <div class="col-md-3 text-md-center">
+            <span class="status-pill status-operational">Operational</span>
+          </div>
+          <div class="col-md-5">
+            <div class="uptime-bar">
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row py-3">
+        <div class="row align-items-center g-3">
+          <div class="col-md-4">
+            <div class="service-name">Dashboard</div>
+            <div class="text-secondary small">Admin panel and analytics workspace</div>
+          </div>
+          <div class="col-md-3 text-md-center">
+            <span class="status-pill status-degraded">Degraded performance</span>
+          </div>
+          <div class="col-md-5">
+            <div class="uptime-bar">
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="warn"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-row py-3">
+        <div class="row align-items-center g-3">
+          <div class="col-md-4">
+            <div class="service-name">Scheduled Jobs</div>
+            <div class="text-secondary small">Background processing and queues</div>
+          </div>
+          <div class="col-md-3 text-md-center">
+            <span class="status-pill status-maintenance">Maintenance</span>
+          </div>
+          <div class="col-md-5">
+            <div class="uptime-bar">
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="maint"></span><span class="maint"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="row g-4 mb-4">
+      <div class="col-lg-7">
+        <div class="incident-card p-4 p-lg-5 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2 class="h4 mb-1">Response time</h2>
+              <p class="text-secondary mb-0">Illustrative trend over the last 24 hours</p>
+            </div>
+            <span class="badge text-bg-light border">24h</span>
+          </div>
+          <div class="chart-placeholder">
+            <div class="chart-line">
+              <svg viewBox="0 0 800 120" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,85 C60,80 90,30 150,38 C210,46 260,88 320,82 C380,76 420,25 480,30 C540,35 580,72 640,65 C700,58 740,25 800,34"
+                      fill="none" stroke="#0d6efd" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="incident-card p-4 p-lg-5 h-100">
+          <div class="mb-4">
+            <h2 class="h4 mb-1">Recent incidents</h2>
+            <p class="text-secondary mb-0">Latest updates and maintenance notices</p>
+          </div>
+
+          <div class="timeline-item d-flex gap-3 py-3">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="fw-semibold">All systems operational</div>
+              <div class="text-secondary small">No incidents reported in the past 7 days.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item d-flex gap-3 py-3">
+            <div class="timeline-dot" style="background:#0d6efd;"></div>
+            <div>
+              <div class="fw-semibold">Scheduled maintenance completed</div>
+              <div class="text-secondary small">Background queue optimization finished successfully · Mar 10, 2026</div>
+            </div>
+          </div>
+
+          <div class="timeline-item d-flex gap-3 py-3">
+            <div class="timeline-dot" style="background:#f59e0b;"></div>
+            <div>
+              <div class="fw-semibold">Dashboard latency resolved</div>
+              <div class="text-secondary small">A short period of elevated response times was mitigated · Mar 6, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 pt-2 pb-4">
+      <div class="footer-note">Powered by Bootstrap 5 · Single-file status page template</div>
+      <div class="footer-note">Need custom branding? Replace titles, colors, and service names.</div>
+    </footer>
+  </div>
+</body>
+</html>
