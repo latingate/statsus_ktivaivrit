@@ -97,14 +97,45 @@
             <span class="status-pill status-operational">Operational</span>
           </div>
           <div class="col-md-5">
-            <div class="uptime-bar">
+
+            <div class="uptime-bar" id="uptimeBar"></div>
+
+<script>
+const warnPercent = 42;   // value 1-100
+const totalBars = 30;
+
+// mode: "single" | "range"
+const warnMode = "single";
+
+const warnIndex = Math.ceil((warnPercent / 100) * totalBars);
+
+const bar = document.getElementById("uptimeBar");
+
+for (let i = 1; i <= totalBars; i++) {
+    const span = document.createElement("span");
+
+    if (
+        (warnMode === "single" && i === warnIndex) ||
+        (warnMode === "range" && i <= warnIndex)
+    ) {
+        span.className = "warn";
+    } else {
+        span.className = "ok";
+    }
+
+    bar.appendChild(span);
+}
+</script>
+
+            
+            <!-- <div class="uptime-bar">
               <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
               <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
               <span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
               <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
               <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
               <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
