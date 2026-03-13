@@ -1,249 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KtivaIvrit - Status Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KtivaIvrit - Status Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body style="direction: ltr;">
-  <div class="container py-4 py-lg-5 page-wrap">
+<div class="container py-4 py-lg-5 page-wrap">
     <header class="hero-card p-4 p-lg-5 mb-4">
-      <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
-        <div>
-          <div class="small-label mb-2">Ktiva Ivrit - System Status</div>
-          <h1 class="display-6 fw-bold mb-3">All systems operational</h1>
-          <p class="lead text-secondary mb-0">
-            Real-time availability and incident history for your platform services.
-          </p>
+        <div class="d-flex flex-column flex-lg-row justify-content-between gap-4 align-items-lg-center">
+            <div>
+                <div class="small-label mb-2">Ktiva Ivrit - System Status</div>
+                <h1 class="display-6 fw-bold mb-3">All systems operational</h1>
+                <p class="lead text-secondary mb-0">
+                    Real-time availability and incident history for your platform services.
+                </p>
+            </div>
+            <div class="text-lg-end">
+                <div class="d-inline-flex align-items-center gap-2 mb-2">
+                    <span class="overall-indicator"></span>
+                    <span class="fw-semibold">Operational</span>
+                </div>
+                <div class="text-secondary">Last updated: Mar 13, 2026 · 12:00 AM</div>
+            </div>
         </div>
-        <div class="text-lg-end">
-          <div class="d-inline-flex align-items-center gap-2 mb-2">
-            <span class="overall-indicator"></span>
-            <span class="fw-semibold">Operational</span>
-          </div>
-          <div class="text-secondary">Last updated: Mar 13, 2026 · 12:00 AM</div>
-        </div>
-      </div>
     </header>
 
     <section class="row g-3 mb-4">
-      <div class="col-md-4">
-        <div class="metric-card p-4 h-100">
-          <div class="small-label mb-2">API uptime</div>
-          <div class="metric-value">99.98%</div>
-          <div class="text-secondary mt-2">Last 30 days</div>
+        <div class="col-md-4">
+            <div class="metric-card p-4 h-100">
+                <div class="small-label mb-2">API uptime</div>
+                <div class="metric-value">99.98%</div>
+                <div class="text-secondary mt-2">Last 30 days</div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="metric-card p-4 h-100">
-          <div class="small-label mb-2">Avg response time</div>
-          <div class="metric-value">182ms</div>
-          <div class="text-secondary mt-2">Global average</div>
+        <div class="col-md-4">
+            <div class="metric-card p-4 h-100">
+                <div class="small-label mb-2">Avg response time</div>
+                <div class="metric-value">182ms</div>
+                <div class="text-secondary mt-2">Global average</div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="metric-card p-4 h-100">
-          <div class="small-label mb-2">Open incidents</div>
-          <div class="metric-value">0</div>
-          <div class="text-secondary mt-2">No active disruptions</div>
+        <div class="col-md-4">
+            <div class="metric-card p-4 h-100">
+                <div class="small-label mb-2">Open incidents</div>
+                <div class="metric-value">0</div>
+                <div class="text-secondary mt-2">No active disruptions</div>
+            </div>
         </div>
-      </div>
     </section>
 
     <section class="status-card p-4 p-lg-5 mb-4">
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
-        <div>
-          <h2 class="h4 mb-1">Services</h2>
-          <p class="text-secondary mb-0">Current health across core components</p>
-        </div>
-        <button class="btn btn-outline-secondary btn-sm">Subscribe to updates</button>
-      </div>
-
-      <div class="service-row py-3">
-        <div class="row align-items-center g-3">
-          <div class="col-md-4">
-            <div class="service-name">Website</div>
-            <div class="text-secondary small">Public frontend and landing pages</div>
-          </div>
-          <div class="col-md-3 text-md-center">
-            <span class="status-pill status-operational">Operational</span>
-          </div>
-          <div class="col-md-5">
-            <div class="uptime-bar" aria-label="30 day uptime history">
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <div>
+                <h2 class="h4 mb-1">Services</h2>
+                <p class="text-secondary mb-0">Current health across core components</p>
             </div>
-          </div>
+            <button class="btn btn-outline-secondary btn-sm">Subscribe to updates</button>
         </div>
-      </div>
 
-      <div class="service-row py-3">
-        <div class="row align-items-center g-3">
-          <div class="col-md-4">
-            <div class="service-name">API</div>
-            <div class="text-secondary small">REST and webhook endpoints</div>
-          </div>
-          <div class="col-md-3 text-md-center">
-            <span class="status-pill status-operational">Operational</span>
-          </div>
-          <div class="col-md-5">
-
-            <div class="uptime-bar" id="uptimeBar"></div>
-
-<script>
-const warnPercent = 42;   // value 1-100
-const totalBars = 30;
-
-// mode: "single" | "range"
-const warnMode = "single";
-
-const warnIndex = Math.ceil((warnPercent / 100) * totalBars);
-
-const bar = document.getElementById("uptimeBar");
-
-for (let i = 1; i <= totalBars; i++) {
-    const span = document.createElement("span");
-
-    if (
-        (warnMode === "single" && i === warnIndex) ||
-        (warnMode === "range" && i <= warnIndex)
-    ) {
-        span.className = "warn";
-    } else {
-        span.className = "ok";
-    }
-
-    bar.appendChild(span);
-}
-</script>
-
-            
-            <!-- <div class="uptime-bar">
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-            </div> -->
-          </div>
-        </div>
-      </div>
-
-      <div class="service-row py-3">
-        <div class="row align-items-center g-3">
-          <div class="col-md-4">
-            <div class="service-name">Dashboard</div>
-            <div class="text-secondary small">Admin panel and analytics workspace</div>
-          </div>
-          <div class="col-md-3 text-md-center">
-            <span class="status-pill status-degraded">Degraded performance</span>
-          </div>
-          <div class="col-md-5">
-            <div class="uptime-bar">
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="warn"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+        <div class="service-row py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-md-4">
+                    <div class="service-name">Website</div>
+                    <div class="text-secondary small">Public frontend and landing pages</div>
+                </div>
+                <div class="col-md-3 text-md-center">
+                    <span class="status-pill status-operational">Operational</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="uptime-bar" aria-label="30 day uptime history">
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
 
-      <div class="service-row py-3">
-        <div class="row align-items-center g-3">
-          <div class="col-md-4">
-            <div class="service-name">Scheduled Jobs</div>
-            <div class="text-secondary small">Background processing and queues</div>
-          </div>
-          <div class="col-md-3 text-md-center">
-            <span class="status-pill status-maintenance">Maintenance</span>
-          </div>
-          <div class="col-md-5">
-            <div class="uptime-bar">
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="maint"></span><span class="maint"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
-              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+        <div class="service-row py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-md-4">
+                    <div class="service-name">API</div>
+                    <div class="text-secondary small">REST and webhook endpoints</div>
+                </div>
+                <div class="col-md-3 text-md-center">
+                    <span class="status-pill status-operational">Operational</span>
+                </div>
+                <div class="col-md-5">
+
+                    <div class="uptime-bar" id="uptimeBar"></div>
+
+                    <script>
+                        const warnPercent = 42;   // value 1-100
+                        const totalBars = 30;
+
+                        // mode: "single" | "range"
+                        const warnMode = "single";
+
+                        const warnIndex = Math.ceil((warnPercent / 100) * totalBars);
+
+                        const bar = document.getElementById("uptimeBar");
+
+                        for (let i = 1; i <= totalBars; i++) {
+                            const span = document.createElement("span");
+
+                            if (
+                                (warnMode === "single" && i === warnIndex) ||
+                                (warnMode === "range" && i <= warnIndex)
+                            ) {
+                                span.className = "warn";
+                            } else {
+                                span.className = "ok";
+                            }
+
+                            bar.appendChild(span);
+                        }
+                    </script>
+
+
+                    <!-- <div class="uptime-bar">
+                      <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                      <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                      <span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                      <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                      <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                      <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+                    </div> -->
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <div class="service-row py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-md-4">
+                    <div class="service-name">Dashboard</div>
+                    <div class="text-secondary small">Admin panel and analytics workspace</div>
+                </div>
+                <div class="col-md-3 text-md-center">
+                    <span class="status-pill status-degraded">Degraded performance</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="uptime-bar">
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="warn"></span><span class="warn"></span><span
+                            class="ok"></span><span class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-row py-3">
+            <div class="row align-items-center g-3">
+                <div class="col-md-4">
+                    <div class="service-name">Scheduled Jobs</div>
+                    <div class="text-secondary small">Background processing and queues</div>
+                </div>
+                <div class="col-md-3 text-md-center">
+                    <span class="status-pill status-maintenance">Maintenance</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="uptime-bar">
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="maint"></span><span
+                            class="maint"></span><span class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                        <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span
+                            class="ok"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="row g-4 mb-4">
-      <div class="col-lg-7">
-        <div class="incident-card p-4 p-lg-5 h-100">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-              <h2 class="h4 mb-1">Response time</h2>
-              <p class="text-secondary mb-0">Illustrative trend over the last 24 hours</p>
+        <div class="col-lg-7">
+            <div class="incident-card p-4 p-lg-5 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="h4 mb-1">Response time</h2>
+                        <p class="text-secondary mb-0">Illustrative trend over the last 24 hours</p>
+                    </div>
+                    <span class="badge text-bg-light border">24h</span>
+                </div>
+                <div class="chart-placeholder">
+                    <div class="chart-line">
+                        <svg viewBox="0 0 800 120" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M0,85 C60,80 90,30 150,38 C210,46 260,88 320,82 C380,76 420,25 480,30 C540,35 580,72 640,65 C700,58 740,25 800,34"
+                                  fill="none" stroke="#0d6efd" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <span class="badge text-bg-light border">24h</span>
-          </div>
-          <div class="chart-placeholder">
-            <div class="chart-line">
-              <svg viewBox="0 0 800 120" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M0,85 C60,80 90,30 150,38 C210,46 260,88 320,82 C380,76 420,25 480,30 C540,35 580,72 640,65 C700,58 740,25 800,34"
-                      fill="none" stroke="#0d6efd" stroke-width="4" stroke-linecap="round" />
-              </svg>
-            </div>
-          </div>
         </div>
-      </div>
 
-      <div class="col-lg-5">
-        <div class="incident-card p-4 p-lg-5 h-100">
-          <div class="mb-4">
-            <h2 class="h4 mb-1">Recent incidents</h2>
-            <p class="text-secondary mb-0">Latest updates and maintenance notices</p>
-          </div>
+        <div class="col-lg-5">
+            <div class="incident-card p-4 p-lg-5 h-100">
+                <div class="mb-4">
+                    <h2 class="h4 mb-1">Recent incidents</h2>
+                    <p class="text-secondary mb-0">Latest updates and maintenance notices</p>
+                </div>
 
-          <div class="timeline-item d-flex gap-3 py-3">
-            <div class="timeline-dot"></div>
-            <div>
-              <div class="fw-semibold">All systems operational</div>
-              <div class="text-secondary small">No incidents reported in the past 7 days.</div>
+                <div class="timeline-item d-flex gap-3 py-3">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <div class="fw-semibold">All systems operational</div>
+                        <div class="text-secondary small">No incidents reported in the past 7 days.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item d-flex gap-3 py-3">
+                    <div class="timeline-dot" style="background:#0d6efd;"></div>
+                    <div>
+                        <div class="fw-semibold">Scheduled maintenance completed</div>
+                        <div class="text-secondary small">Background queue optimization finished successfully · Mar 10,
+                            2026
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item d-flex gap-3 py-3">
+                    <div class="timeline-dot" style="background:#f59e0b;"></div>
+                    <div>
+                        <div class="fw-semibold">Dashboard latency resolved</div>
+                        <div class="text-secondary small">A short period of elevated response times was mitigated · Mar
+                            6, 2026
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div class="timeline-item d-flex gap-3 py-3">
-            <div class="timeline-dot" style="background:#0d6efd;"></div>
-            <div>
-              <div class="fw-semibold">Scheduled maintenance completed</div>
-              <div class="text-secondary small">Background queue optimization finished successfully · Mar 10, 2026</div>
-            </div>
-          </div>
-
-          <div class="timeline-item d-flex gap-3 py-3">
-            <div class="timeline-dot" style="background:#f59e0b;"></div>
-            <div>
-              <div class="fw-semibold">Dashboard latency resolved</div>
-              <div class="text-secondary small">A short period of elevated response times was mitigated · Mar 6, 2026</div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
     <footer class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 pt-2 pb-4">
-      <div class="footer-note">Powered by Bootstrap 5 · Single-file status page template</div>
-      <div class="footer-note">Need custom branding? Replace titles, colors, and service names.</div>
+        <div class="footer-note">Powered by Bootstrap 5 · Single-file status page template</div>
+        <div class="footer-note">Need custom branding? Replace titles, colors, and service names.</div>
     </footer>
-  </div>
+</div>
 </body>
 </html>
