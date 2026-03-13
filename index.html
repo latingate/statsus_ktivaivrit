@@ -97,7 +97,7 @@
             <div class="row align-items-center g-3">
                 <div class="col-md-4">
                     <div class="service-name">API</div>
-                    <div class="text-secondary small">REST and webhook endpoints</div>
+                    <div class="text-secondary small">REST and webhook endpoints (GS)</div>
                 </div>
                 <div class="col-md-3 text-md-center">
                     <span class="status-pill status-operational">Operational</span>
@@ -113,13 +113,13 @@
                         const totalBars = 30;
 
                         // display mode
-                        const warnMode = "single";   // "single" | "range"
+                        const warnMode = "range";   // "single" | "range"
 
                         // class names (colors/styles)
                         // classes are defined in styles.css, you can customize them or add new ones
                         // currentlly there are ok, warm, bad, maint
                         const okClass = "ok";
-                        const warnClass = "maint";
+                        const warnClass = "bad";
 
                         const warnIndex = Math.ceil((warnPercent / 100) * totalBars);
 
